@@ -1,3 +1,7 @@
+/* GLOBAL STYLES */
+body {
+   background: #eee;
+}
 /* HEADER CONTENT */
 #topics {
    margin: 10px;
@@ -14,7 +18,7 @@
 main {
    display: flex;
 }
-#gallery-items {
+#gallery-content {
    display: inline-block;
 }
 #gallery-header {
@@ -24,7 +28,8 @@ main {
    margin: 5px
 }
 #add-topic {
-   margin: 0px 10px;
+margin-left: auto;
+margin-right: 10px;
 }
 #add-topic-text {
    margin: 5px 0px;
