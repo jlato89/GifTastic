@@ -1,11 +1,14 @@
 //TODO
 //+ add global variables
 
-// MAIN PROCESS
-displayTopicButtons();
+// GLOBAL VARIABLES
+var topics = ["Cats", "Dogs", "Deer", "Rabbits", "Fish", "Snakes", "Lions", "Chickens", "Cows", "Ferrets"];
+
+
 
 // FUNCTIONS
 function displayTopicButtons() {
+   $("#topics").empty();
    for (var i = 0; i < topics.length; i++) {
       var topicName = topics[i];
       var topicButtons = 
@@ -15,7 +18,9 @@ function displayTopicButtons() {
    }
 }
 
+$(document).ready(function() {
 
-// GLOBAL VARIABLES
-var topics = ["Cats", "Dogs", "Deer", "Rabbits", "Fish", "Snakes", "Lions", "Chickens", "Cows", "Ferrets"];
-console.log('topics: ', topics);
+// MAIN PROCESS
+displayTopicButtons();
+
+});
