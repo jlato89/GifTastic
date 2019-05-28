@@ -1,0 +1,31 @@
+/* HEADER CONTENT */
+#topics {
+   margin: 10px;
+}
+.topic-btn {
+   background: rgb(0, 180, 180);
+   border-radius: 5px;
+   font-size: .75rem;
+   text-decoration: none;
+   color: white;
+   padding: .20rem .75rem;
+}
+/* MAIN CONTENT */
+main {
+   display: flex;
+}
+#gallery-items {
+   display: inline-block;
+}
+#gallery-header {
+   margin: 5px;
+}
+#gallery img {
+   margin: 5px
+}
+#add-topic {
+   margin: 0px 10px;
+}
+#add-topic-text {
+   margin: 5px 0px;
+}
