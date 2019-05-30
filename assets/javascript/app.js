@@ -2,8 +2,7 @@
 //+ add global variables
 
 // GLOBAL VARIABLES
-var selectedTopic = "cats";
-var giphyURL = "https://api.giphy.com/v1/gifs/search?api_key=eUuVlEd7l3OZ27FzQGAlgo0TXWlm15Cb&q="+selectedTopic+"&limit=10";
+var selectedTopic;
 
 var topics = ["Cats", "Dogs", "Deer", "Rabbits", "Fish", "Snakes", "Lions", "Chickens", "Cows", "Ferrets"];
 
@@ -21,13 +20,20 @@ function displayTopicButtons() {
    }
 }  //* End of DisplayTopicButtons
 
-function queryGiphy() {
+$(document).ready(function() {
+
+// MAIN PROCESS
+displayTopicButtons();
+
+$(".topic-btn").on("click", function() {
+   var selectedTopic = $(this).text();
+   var giphyURL = "https://api.giphy.com/v1/gifs/search?api_key=eUuVlEd7l3OZ27FzQGAlgo0TXWlm15Cb&q="+selectedTopic+"&limit=10";
+
    $.ajax({
       url: giphyURL,
       method: "GET"
    }).then(function(response) {
       $("#gallery").empty();
-      console.log(response.data[1]);      
       for (var i = 0; i < 10; i++) {
          var stillURL = response.data[i].images.fixed_width_still.url;
          var gifyURL = response.data[i].images.fixed_width.url;
@@ -49,14 +55,6 @@ function queryGiphy() {
          $("#gallery").append(final);
       }
    });
-}  //* End of queryGiphy
-
-
-queryGiphy(); // Display Gifs
-
-$(document).ready(function() {
-
-// MAIN PROCESS
-displayTopicButtons();
+});
 
 });
