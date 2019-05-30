@@ -26,19 +26,25 @@ function queryGiphy() {
       url: giphyURL,
       method: "GET"
    }).then(function(response) {
-      console.log(response.data);      
+      $("#gallery").empty();
+      console.log(response.data[1]);      
       for (var i = 0; i < 10; i++) {
+         var stillURL = response.data[i].images.fixed_width_still.url;
+         var gifyURL = response.data[i].images.fixed_width.url;
          var rated = response.data[i].rating;
-         var gify = response.data[i].images.original_still.url;
-         console.log('gify: ', gify);
 
-         var ratingP = $("<h4 id='gallery-header'>").text(rated);
-         var gifyI = $("<img class='gallery-img' alt='placeholder' src='"+gify+"'>");
-         
+         var ratingP = $("<h4 id='gallery-header'>").text("Rating: "+rated);
+         var galleryImage = $("<img class='gallery-img' alt='placeholder'>");
+         galleryImage.attr("src", stillURL);
+         galleryImage.attr("data-state", "still");
+         galleryImage.attr("data-animate", gifyURL);
+         galleryImage.attr("data-still", stillURL);
+         galleryImage.attr("alt", "Cat Gif");
+
          var final = $("<div id='gallery-content'>");
          
          final.append(ratingP);
-         final.append(gifyI);
+         final.append(galleryImage);
 
          $("#gallery").append(final);
       }
@@ -46,7 +52,7 @@ function queryGiphy() {
 }  //* End of queryGiphy
 
 
-queryGiphy();
+queryGiphy(); // Display Gifs
 
 $(document).ready(function() {
 
