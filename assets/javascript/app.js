@@ -2,10 +2,10 @@
 //+ add global variables
 
 // GLOBAL VARIABLES
-var selectedTopic;
+var selectedTopic = "cat";
+var giphyURL = "https://api.giphy.com/v1/gifs/search?api_key=eUuVlEd7l3OZ27FzQGAlgo0TXWlm15Cb&q="+selectedTopic+"&limit=10";
 
 var topics = ["Cats", "Dogs", "Deer", "Rabbits", "Fish", "Snakes", "Lions", "Chickens", "Cows", "Ferrets"];
-
 
 
 // FUNCTIONS
@@ -14,20 +14,24 @@ function displayTopicButtons() {
    for (var i = 0; i < topics.length; i++) {
       var topicName = topics[i];
       var topicButtons = 
-      "<a href='#' class='topic-btn'>"+topicName+"</a>";
+      "<a href='#' class='topic-btn topics'>"+topicName+"</a>";
       
       $("#topics").append(topicButtons);
    }
 }  //* End of DisplayTopicButtons
 
-$(document).ready(function() {
 
 // MAIN PROCESS
+$(document).ready(function() {
+
+   // Display Topic Buttons
 displayTopicButtons();
 
-$(".topic-btn").on("click", function() {
-   var selectedTopic = $(this).text();
-   var giphyURL = "https://api.giphy.com/v1/gifs/search?api_key=eUuVlEd7l3OZ27FzQGAlgo0TXWlm15Cb&q="+selectedTopic+"&limit=10";
+   // Show gifs when user clicks a topic
+$(".topics").on("click", function() {
+   selectedTopic = $(this).text();
+   console.log('selectedTopic: ', selectedTopic);
+   giphyURL = "https://api.giphy.com/v1/gifs/search?api_key=eUuVlEd7l3OZ27FzQGAlgo0TXWlm15Cb&q="+selectedTopic+"&limit=10";
 
    $.ajax({
       url: giphyURL,
@@ -57,4 +61,16 @@ $(".topic-btn").on("click", function() {
    });
 });
 
+   // Add submit topic feature
+$("#add-topic-submit").on("click", function() {
+   var value = $("#topic-text").val();
+   
+   if (value) {
+   topics.push(value);
+   } else {}
+
+   $("#topic-text").val("");
+   displayTopicButtons();
 });
+
+}); //* End of Doc Ready
