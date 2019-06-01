@@ -1,5 +1,5 @@
-//TODO
-//+ add global variables
+// TODO
+//+ Add click fuction for animate/still state
 
 // GLOBAL VARIABLES
 var selectedTopic = "cat";
@@ -20,24 +20,13 @@ function displayTopicButtons() {
    }
 }  //* End of DisplayTopicButtons
 
-
-// MAIN PROCESS
-$(document).ready(function() {
-
-   // Display Topic Buttons
-displayTopicButtons();
-
-   // Show gifs when user clicks a topic
-$(".topics").on("click", function() {
-   selectedTopic = $(this).text();
-   console.log('selectedTopic: ', selectedTopic);
-   giphyURL = "https://api.giphy.com/v1/gifs/search?api_key=eUuVlEd7l3OZ27FzQGAlgo0TXWlm15Cb&q="+selectedTopic+"&limit=10";
-
+function ajaxCall() {
    $.ajax({
       url: giphyURL,
       method: "GET"
    }).then(function(response) {
       $("#gallery").empty();
+
       for (var i = 0; i < 10; i++) {
          var stillURL = response.data[i].images.fixed_width_still.url;
          var gifyURL = response.data[i].images.fixed_width.url;
@@ -59,18 +48,48 @@ $(".topics").on("click", function() {
          $("#gallery").append(final);
       }
    });
-});
+ }
+
+// MAIN PROCESS
+$(document).ready(function() {
+
+   // Display Topic Buttons
+   displayTopicButtons();
+
+   // Show gifs when user clicks a topic
+   $("#topics").on("click", ".topics", function() {
+      selectedTopic = $(this).text();
+      console.log('selectedTopic: ', selectedTopic);
+      giphyURL = "https://api.giphy.com/v1/gifs/search?api_key=eUuVlEd7l3OZ27FzQGAlgo0TXWlm15Cb&q="+selectedTopic+"&limit=10";
+
+      ajaxCall();
+   });
+
+   //! Click gif to toggle animation
+   $("#gallery").on("click", ".gallery-img", function() {
+      var dataState = $(this).attr("data-state");
+      console.log(this);
+      
+      if (dataState == "still") {
+         alert("img is still");
+      }
+      if (dataState == "animate") {
+         alert("img is animating");
+      }
+   });
 
    // Add submit topic feature
-$("#add-topic-submit").on("click", function() {
-   var value = $("#topic-text").val();
-   
-   if (value) {
-   topics.push(value);
-   } else {}
+   $("form").on("submit", function() {
+      event.preventDefault();
+      var value = $("#topic-text").val();
+      
+      if (value) {
+      topics.push(value);
+      }
 
-   $("#topic-text").val("");
-   displayTopicButtons();
-});
+      $("#topic-text").val("");
+
+      displayTopicButtons();
+   });
 
 }); //* End of Doc Ready
