@@ -1,5 +1,5 @@
 // TODO
-//+ Add click fuction for animate/still state
+//x Add click function for animate/still state
 
 // GLOBAL VARIABLES
 var selectedTopic = "cat";
@@ -65,16 +65,17 @@ $(document).ready(function() {
       ajaxCall();
    });
 
-   //! Click gif to toggle animation
+   // Click gif to toggle animation
    $("#gallery").on("click", ".gallery-img", function() {
       var dataState = $(this).attr("data-state");
-      console.log(this);
       
       if (dataState == "still") {
-         alert("img is still");
+         $(this).attr("src", $(this).attr("data-animate"));
+         $(this).attr("data-state", "animate");
       }
       if (dataState == "animate") {
-         alert("img is animating");
+         $(this).attr("src", $(this).attr("data-still"));
+         $(this).attr("data-state", "still");
       }
    });
 
